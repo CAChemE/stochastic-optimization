@@ -2,7 +2,7 @@
 
 A set of examples to optimize process simulators with Python and derivative-free algorithms such as GA or PSO.
 
-This is a talk submited to the next Python Conference in Spain (PyConES 2016)
+This is a talk submitted to the next Python Conference in Spain (PyConES 2016)
 
 (work in progress...) 
 
