@@ -18,3 +18,9 @@ Esta charla será impartida por investigadores de ingeniería química de la Uni
 * Introducción a la problemática en la optimización matemática (5 min). Se realizará una introducción visual a conceptos de optimización determinista, así como a las ventajas e inconvenientes que presentan los algoritmos estocásticos.
 * Implementación del algoritmo PSO (15 min). Se verán ejemplos sencillos de optimización con Python y se explicará de manera breve cómo acelerar su tiempo de ejecución. 
 * Serie de ejemplos de problemas de optimización en ingeniería (10 min), con especial hincapié en ejemplos reales en la industria e ingeniería química.
+
+# Por qué no deberías perderte esta charla
+La charla podrá ser seguida tanto como por principiantes en el mundo de la ciencia e ingeniería así como por desarrolladores/as profesionales. Creemos que con esta charla captaremos la atención de estos dos espectros ya que:
+1. Python es sencillo de leer y la implementación de estos algoritmos estocásticos puede ser entendida por gente sin experiencia en programación pero que hace uso de simuladores. 
+2. Los desarrolladores/as podrán ver cómo sus conocimientos en procesamiento en paralelo y/o optimización de código con Python pueden darles nuevas aplicaciones en nichos de mercado quizás no tan conocidos. 
+
