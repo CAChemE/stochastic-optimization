@@ -1,4 +1,4 @@
-# Python to optimize for chemical process design and optimization via derivative-free algorithms
+# Chemical process design and optimization via derivative-free algorithms (written in Python!)
 
 A set of examples to optimize process simulators with Python and derivative-free algorithms such as GA or PSO.
 
