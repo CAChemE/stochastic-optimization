@@ -1,6 +1,6 @@
 # Breve descripción
 
-La optimización mediante algoritmos estocásticos —ej. algoritmos genéticos o por enjambre de partículas— presenta una serie de ventajas frente a los algoritmos “clásicos” deterministas al no requerir el cálculo de las derivadas del sistema por lo que su implementación en simuladores es casi inmediata. En esta charla se explicará mediante código las ventajas del algoritmo PSO (Particle Swarm Optimization) y se mostrarán ejemplos no triviales haciendo uso de simuladores de procesos químicos.
+La optimización mediante algoritmos estocásticos —ej. algoritmos genéticos o por enjambre de partículas— presenta una serie de ventajas frente a los algoritmos _«clásicos»_ deterministas al no requerir el cálculo de las derivadas del sistema por lo que su implementación en simuladores es casi inmediata. En esta charla se explicará mediante código las ventajas del algoritmo PSO (Particle Swarm Optimization) y se mostrarán ejemplos no triviales haciendo uso de simuladores de procesos químicos.
 
 # Resumen detallado
 
