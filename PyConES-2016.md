@@ -21,6 +21,6 @@ Esta charla será impartida por investigadores de ingeniería química de la Uni
 
 # Por qué no deberías perderte esta charla
 La charla podrá ser seguida tanto como por principiantes en el mundo de la ciencia e ingeniería así como por desarrolladores/as profesionales. Creemos que con esta charla captaremos la atención de estos dos espectros ya que:
+
 1. Python es sencillo de leer y la implementación de estos algoritmos estocásticos puede ser entendida por gente sin experiencia en programación pero que hace uso de simuladores. 
 2. Los desarrolladores/as podrán ver cómo sus conocimientos en procesamiento en paralelo y/o optimización de código con Python pueden darles nuevas aplicaciones en nichos de mercado quizás no tan conocidos. 
-
