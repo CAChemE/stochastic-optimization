@@ -1,8 +1,10 @@
-# Breve descripción
+# Aprendiendo magia negra con Python, optimización estocástica y simuladores 
+
+## Breve descripción
 
 La optimización mediante algoritmos estocásticos —ej. algoritmos genéticos o por enjambre de partículas— presenta una serie de ventajas frente a los algoritmos _«clásicos»_ deterministas al no requerir el cálculo de las derivadas del sistema por lo que su implementación en simuladores es casi inmediata. En esta charla se explicará mediante código las ventajas del algoritmo PSO (_Particle Swarm Optimization_) y se mostrarán ejemplos no triviales haciendo uso de simuladores de procesos químicos.
 
-# Resumen detallado
+## Resumen detallado
 
 La simulación y optimización de procesos han experimentado un crecimiento considerable durante los últimos años. Con el avance, abaratamiento de arquitecturas y mejora de software para procesamiento en paralelo, muchas industrias apuestan por algoritmos estocásticos para mejorar la producción, reducir los costes o disminuir el impacto medioambiental.
 
@@ -19,7 +21,7 @@ Esta charla será impartida por investigadores de ingeniería química de la Uni
 * Implementación del algoritmo PSO (15 min). Se verán ejemplos sencillos de optimización con Python y se explicará de manera breve cómo acelerar su tiempo de ejecución. 
 * Serie de ejemplos de problemas de optimización en ingeniería (10 min), con especial hincapié en ejemplos reales en la industria e ingeniería química.
 
-# Por qué no deberías perderte esta charla
+## Por qué no deberías perderte esta charla
 La charla podrá ser seguida tanto como por principiantes en el mundo de la ciencia e ingeniería así como por desarrolladores/as profesionales. Creemos que con esta charla captaremos la atención de estos dos espectros ya que:
 
 1. Python es sencillo de leer y la implementación de estos algoritmos estocásticos puede ser entendida por gente sin experiencia en programación pero que hace uso de simuladores. 
