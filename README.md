@@ -2,7 +2,9 @@
 
 A set of examples to optimize process simulators with Python and derivative-free algorithms such as GA or PSO.
 
-This is a talk submitted to the next Python Conference in Spain (PyConES 2016)
+![PSO-2D](https://github.com/CAChemE/stochastic-optimization/blob/master/PSO/2D/img/PSO_Example1.gif)
+
+This is a talk submittedto the _great_ Python Conference in Spain (PyConES 2016)
 
 (work in progress...) 
 
