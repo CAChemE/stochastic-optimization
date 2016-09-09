@@ -46,7 +46,7 @@ def pso(objfnc, lb, ub, intVar, *varargin):
     acceleration_c2 = 1.49  # Acceleration coefficient (social)
     v_max = 2               # maximum velocity in absolute value
     break_coeff = 0.05      # Break factor for the worst particle
-    Red_acceleration_c1 = 2 # Reduction factor of accelaration c1 coefficient for the worst particle
+    Red_acceleration_c1 = 2 # Reduction factor of acceleration c1 coefficient for the worst particle
 
 
     # * Algorithm options
@@ -57,13 +57,13 @@ def pso(objfnc, lb, ub, intVar, *varargin):
 
     # ????????? PARTICLE SWARM OPTIMIZATION ALGORITHM CODE ????????????????????
 
-    # # Preprocessing Operations ##############################################
-    n_variables = len(lb) # # variables
+    # # Pre-processing Operations ##############################################
+    n_variables = np.size(lb) # # variables
 
-    lb = lb[:]
+    lb = np.array(lb)
     lb_original = lb # Lower and upper bounds must be column vectors.
 
-    ub = ub[:]
+    ub = np.array(ub)
     ub_original = ub
 
 
@@ -73,18 +73,23 @@ def pso(objfnc, lb, ub, intVar, *varargin):
     # NOTE1: Bounds on integer variables must be integer numbers
     # NOTE2: New bounds are established in order to give the same probability
     #        to the variable bounds when round MATLAB function is used.
-    if isvector(intVar)
-        lb(intVar) = lb(intVar) - 0.49
-        ub(intVar) = ub(intVar) + 0.49
-    end
+
+    intVar = np.array(intVar)
+
+    if intVar.size: # if is not empty
+        lb[intVar] = lb[intVar] - 0.49
+        ub[intVar] = ub[intVar] + 0.49
 
     # 02. Set the initial position of the particles ---------------------------
     aux1 =  (ub - lb)
-    x = lb(:,ones(1,swarm_size)) + aux1(:,ones(1,swarm_size)).*rand(n_variables, swarm_size)
-    x(intVar,:) = round(x(intVar,:))
+    x = lb[:, np.ones(1, swarm_size)] + \
+        aux1[:, np.ones(1,swarm_size)]*np.random.random_sample(n_variables, swarm_size)
+
+    x[intVar,:] = np.round(x[intVar,:])
+
 
     # 03. Set initial velocity for particles ----------------------------------
-    v = zeros(n_variables, swarm_size)
+    v = np.zeros(n_variables, swarm_size)
 
     # 04. Evaluation of each particle -----------------------------------------
     # NOTE3: It is not possible to perform a vectorized version since our
