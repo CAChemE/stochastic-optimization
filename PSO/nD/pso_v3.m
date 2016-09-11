@@ -9,7 +9,7 @@ function Result = pso_v3(objfnc, lb, ub, intVar, varargin)
 % >>>>>>>>>>>>>>>>>>>>>>>>>>[ PSO OPTIONS ]>>>>>>>>>>>>>>>>>>>> User inputs
      
 % * Population size
-swarm_size = 20;       %  number of the swarm particles
+swarm_size = 5;       %  number of the swarm particles
 
 % * Termination Conditions
 maxIter    = 1000;       %  maximum number of iterations
