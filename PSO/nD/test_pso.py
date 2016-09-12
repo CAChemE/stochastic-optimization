@@ -15,8 +15,7 @@ class PSOfunctionMethodTests(unittest.TestCase):
 
         assert math.isclose(result.xopt[0], 0, abs_tol=1e-3), "ERROR: variable didn't converged to 0"
 
-class PSOfunctionMethodTestsInteger(unittest.TestCase):
-    def test_pso1D(self):
+    def test_pso1Dinteger(self):
         intVar = [0]
         result = pso(ackley, [-5], [5], intVar)
 
@@ -53,5 +52,5 @@ class PSOfunctionMethodTestsInteger(unittest.TestCase):
     #     assert float(result.xopt[0]).is_integer(), "ERROR: first variable obtained wasn't an integer"
     #     assert float(result.xopt[1]).is_integer(), "ERROR: second variable obtained wasn't an integer"
 
-if __name__ == '__main__':
-    unittest.main()
+#if __name__ == '__main__':
+#    unittest.main()
