@@ -32,7 +32,7 @@ def pso(objfnc, lb, ub, intVar, *varargin):
     #  ----------------- PSO OPTIONS (user inputs) -----------------------------------------
 
     # * Population size
-    swarm_size = 5       #  number of the swarm particles
+    swarm_size = 20       #  number of the swarm particles
 
     # * Termination Conditions
     maxIter    = 1000       #  maximum number of iterations
@@ -48,8 +48,8 @@ def pso(objfnc, lb, ub, intVar, *varargin):
     inertia_w       = 0.72  # Inertia weight
     acceleration_c1 = 1.49  # Acceleration coefficient (cognitive)
     acceleration_c2 = 1.49  # Acceleration coefficient (social)
-    v_max = 2               # maximum velocity in absolute value
-    pso_flag = break_coeff = 0.05      # break  # stops while loop factor for the worst particle
+    v_max = 0.07               # maximum velocity in absolute value
+    break_coeff = 0.05      # break  # stops while loop factor for the worst particle
     Red_acceleration_c1 = 2 # Reduction factor of acceleration c1 coefficient for the worst particle
 
 
@@ -91,6 +91,7 @@ def pso(objfnc, lb, ub, intVar, *varargin):
     x = np.outer(lb, np.ones(swarm_size)) + \
         np.outer(aux1, np.ones(swarm_size))*np.random.rand(n_variables, swarm_size)
 
+    # x = np.array([[-4.067602406241254, 1.411475292329600, 2.311848990285760]])
     x[intVar, :] = np.round(x[intVar, :])
 
 
@@ -108,13 +109,13 @@ def pso(objfnc, lb, ub, intVar, *varargin):
 
 
     # 05. Best particle position and global best particle position and fitness-
-    pbest_position             = x
-    pbest_fitness              = fval
+    pbest_position             = np.copy(x)
+    pbest_fitness              = np.copy(fval)
 
     gbest_fitness              = np.nanmin(fval)
     gbest_ind                  = np.nanargmin(fval)
     
-    gbest_position             = x[:, gbest_ind]
+    gbest_position             = np.copy(x[:, gbest_ind])
 
     iter1_time = round((time.time()-tic), 2)
 
@@ -157,10 +158,8 @@ def pso(objfnc, lb, ub, intVar, *varargin):
     FO_evaluations           = swarm_size
     iter_fitness_improvement = 0
 
-    v_new  = v
-    x_new  = x
-    x_plot = x
-
+    v_new  = np.copy(v)
+    x_new  = np.copy(x)
 
     tic = time.time()
     
@@ -175,7 +174,7 @@ def pso(objfnc, lb, ub, intVar, *varargin):
 
             if iter > 1 and iP == pworst_ind:
 
-                v_new[:, iP] = pso_flag = break_coeff * inertia_w * v[:, iP] +\
+                v_new[:, iP] =  break_coeff * inertia_w * v[:, iP] +\
                     acceleration_c1 * np.random.rand(n_variables) * (pbest_position[:, iP] - x[:, iP])/Red_acceleration_c1 + \
                     acceleration_c2 * np.random.rand(n_variables) * (gbest_position - x[:, iP])
             else:
@@ -205,15 +204,14 @@ def pso(objfnc, lb, ub, intVar, *varargin):
     #        variables keeping unalterd x_new for next iterations
             x_iP = x_new[:, iP]
             x_iP[intVar] = np.round(x_iP[intVar])
-            x_plot[:, iP] = x_iP
 
 
     # 13. Function evaluation & update personal best particle (pbest) so far --
             fval[iP] = objfnc(x_iP)
 
             if fval[iP] < pbest_fitness[iP]:
-                pbest_fitness[iP]    = fval[iP]
-                pbest_position[:,iP] =  x_iP
+                pbest_fitness[iP]     = fval[iP]
+                pbest_position[:, iP] = x_iP
             
 
     # 14. Update global best particle (gbest) ---------------------------------
@@ -246,6 +244,9 @@ def pso(objfnc, lb, ub, intVar, *varargin):
         print_results(iter, FO_evaluations, gbest_fitness, pworst_fitness,
                       error_fnc, error_x, swarm_size, n_variables, intVar,
                             print_freq )
+
+        # print('x:{}'.format(gbest_position))
+        # import pdb; pdb.set_trace()
 
     # 16. Plot Particles and Objective Function -------------------------------
 
@@ -285,13 +286,13 @@ def pso(objfnc, lb, ub, intVar, *varargin):
             termination = 'Continue: # {0} iteration'.format(iter)
 
         # * Position and velocity for next iteration
-        x = x_new
-        v = v_new
+        x = np.copy(x_new)
+        v = np.copy(v_new)
 
     class Result:
         pass
    
     Result.xopt  = gbest_position
     Result.FO    = gbest_fitness
-     # Result.exit  = termination
-    return
+    Result.exit  = termination
+    return Result

@@ -24,8 +24,8 @@ def  print_results(iter, FO_evaluations, gbest, pworst,
         print(' \n')
         print('# STANDARD PARTICLE SWARM OPTIMIZATION ALGORITHM - gbest version ### \n')
         print('     * Swarm size ................. {}\n'.format(swarm_size))
-        print('     * # Continuous Variables ..... {}\n'.format(n_variables - intVar.size))
-        print('     * # Integer Variables .......  {}\n'.format(intVar.size))
+        print('     * # continuous variables ..... {}\n'.format(n_variables - intVar.size))
+        print('     * # integer variables .......  {}\n'.format(intVar.size))
         print(' \n')
 
 
@@ -36,7 +36,7 @@ def  print_results(iter, FO_evaluations, gbest, pworst,
             print('  --------------------------------------------------------------------------------------------\n')
 
 
-        print('{:8.0f} \t\t {:5.0f} \t {:15.3e} \t {:11.3e} \t {:11.3e} \t {:6.3e}  \n'.format(
+        print('{:8.0f} \t {:5.0f} \t {:15.3e} \t {:11.3e} \t {:11.3e} \t {:6.3e}  \n'.format(
         iter, FO_evaluations, gbest, pworst, error_fnc, error_x))
 
 
