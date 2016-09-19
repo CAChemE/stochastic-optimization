@@ -100,8 +100,8 @@ def odd_square(x):
     returns y = objective function value
     
     Best solution:
-    f(x_i*) = y = 0  (i dimensions)
-    x_i* = 0
+    f(x_i*) = y = -1.14383  (i dimensions)
+    x_i* = many solutions near b
     
     -5*pi <= x_i <= 5*pi
     """
@@ -109,7 +109,7 @@ def odd_square(x):
     x = np.array(x)  # converts list to numpy array
     n = x.size  # n-dimensions of the vector
     
-    assert n<=10, "Error: more than 10 dimensions were given, you need modify function params to run"
+    assert n<=10, "Error: more than 10 dimensions were given, you need to modify function params to run"
     b = np.array([1, 1.3, 0.8, -0.4, -1.3, 1.6, -0.2, -0.6, 0.5, 1.4,
                   1, 1.3, 0.8, -0.4, -1.3, 1.6, -0.2, -0.6, 0.5, 1.4])
     
@@ -122,4 +122,53 @@ def odd_square(x):
 
     return y
 
+def schwefel(x):
+    """Schwefel n-dimensional function
+
+    Params:
+    x =  numpy array or list containing the independent variables
+    returns y = objective function value
+    
+    Best solution:
+    f(x_i*) = y = -418.983 (i dimensions)
+    x_i* = 420.968746
+    
+    -500 <= x_i <= 500
+    """
+
+    x = np.array(x)  # converts list to numpy array
+    n = x.size  # n-dimensions of the vector
+    
+    y = -1/n*np.sum(x*np.sin(np.sqrt(np.abs(x))))
+
+    return y
+
+def rana(x):
+    """Rana n-dimensional function
+
+    Params:
+    x =  numpy array or list containing the independent variables
+    returns y = objective function value
+    
+    Best solution:
+    f(x_i*) = y = -511.708 (i dimensions)
+    x_i* = -512
+    
+    -512 <= x_i <= 512
+    """
+
+    x = np.array(x)  # converts list to numpy array
+    n = x.size  # n-dimensions of the vector
+    assert n>=2, "Error: Rana function requires at least 2D"
+    
+    #import pdb; pdb.set_trace()
+    
+    x_j = x[:-1]
+    x_j1 = x[1:]
+    alpha = np.sqrt(np.abs(x_j1+1-x_j))
+    beta = np.sqrt(np.abs(x_j1+1+x_j))
+    
+    fo = np.sum(x_j*np.sin(alpha)*np.cos(beta)+x_j1*np.cos(alpha)*np.sin(beta))
+
+    return fo
 
