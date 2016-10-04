@@ -23,16 +23,17 @@ def plotPSO_2D(function, particle_xycoordinates, limits=([-5,5],[-5,5]), n_point
         for j in range(n_points):
             ZZ[i,j] = function((XX[i,j], YY[i,j]))
     
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.plot_surface(XX,YY,ZZ,
+    fig = plt.figure(figsize=(12,4))
+    ax1 = fig.add_subplot(1, 2, 1, projection='3d')
+
+    ax1.plot_surface(XX,YY,ZZ,
                     rstride=3, cstride=3, alpha=0.4,
                     cmap=plt.cm.viridis)
     
     z_cut_plane = 0 
     
     # Projection of function
-    z_proj = ax.contour(XX,YY,ZZ,
+    z_proj = ax1.contour(XX,YY,ZZ,
                               zdir='z', offset=z_cut_plane,
                               cmap=plt.cm.viridis)
     
@@ -49,27 +50,39 @@ def plotPSO_2D(function, particle_xycoordinates, limits=([-5,5],[-5,5]), n_point
         z_particles[i] = function((x_particles[i],y_particles[i]))
     
     # Plot particles over the function
-    ax.scatter(x_particles, y_particles, z_particles,
+    ax1.scatter(x_particles, y_particles, z_particles,
            s=50, c='red',
            depthshade=True)
     
     z_particles_projection = z_cut_plane*np.ones(n_particles)
     
     # Plot particles over the function
-    ax.scatter(x_particles, y_particles, z_particles_projection,
+    ax1.scatter(x_particles, y_particles, z_particles_projection,
            s=50, c='blue',
            depthshade=False)
     
-    ax.set_xlabel('$x$')
-    ax.set_ylabel('$y$')
-    ax.set_zlabel('$z$')
+    ax1.set_xlabel('$x$')
+    ax1.set_ylabel('$y$')
+    ax1.set_zlabel('$z$')
     
-    #ax.set_title('function')
+    ax1.set_title(function.__name__)
+    
+    # 2D projection
+    ax2 = fig.add_subplot(1, 2, 2)
+    
+    # Projection of function
+    ax2.contour(XX,YY,ZZ,
+                 zdir='z', offset=z_cut_plane,
+                 cmap=plt.cm.viridis)
+    # Particles
+    ax2.scatter(x_particles, y_particles,
+           s=50, c='blue')
+    
     
     plt.show()
 
     
-    return fig, ax
+    return fig, ax1
 
 def plotPSO_1D(function, particle_xcoordinates, limits=([-5,5]), n_points=100, *arg):
     
