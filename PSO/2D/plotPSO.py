@@ -5,20 +5,27 @@ from mpl_toolkits.mplot3d import Axes3D
 plt.style.use('bmh')
 
 
-def plotPSO_2D(function, particle_xycoordinates=([],[]), limits=([-5,5],[-5,5]), n_points=100, *arg):
+def plotPSO_2D(function, limits=([-5,5],[-5,5]),
+               particles_xy=([],[]), particles_uv=([],[]),
+               n_points=100, *arg):
     """Creates a figure of 1x2 with a 3D projection representation of a 2D function and a its projection
     
     Params:
         function: a 2D or nD objective function
-        particle_xycoordinates a tuple contatining 2 lists with the x and y coordinate of the particles
         limits: define the bounds of the function
+        particles_xy a tuple contatining 2 lists with the x and y coordinate of the particles
+        particles_xy a tuple contatining 2 lists with the u and v velocities of the particles
         n_points: number of points where the function is evaluated to be plotted, the bigger the finner"""
     
+
     # Grid points 
     x_lo = limits[0][0]
     x_up = limits[0][1]
     y_lo = limits[1][0]
-    y_up = limits[1][1]                             
+    y_up = limits[1][1]
+    
+    assert x_lo<x_up, "Unbound x limits, the first value of the list needs to be higher"
+    assert y_lo<y_up, "Unbound x limits, the first value of the list needs to be higher"
                                  
     x = np.linspace(x_lo, x_up, n_points) # x coordinates of the grid
     y = np.linspace(y_lo, y_up, n_points) # y coordinates of the grid
@@ -36,21 +43,33 @@ def plotPSO_2D(function, particle_xycoordinates=([],[]), limits=([-5,5],[-5,5]),
     ax1.plot_surface(XX,YY,ZZ,
                     rstride=3, cstride=3, alpha=0.4,
                     cmap=plt.cm.viridis)
-    
+        
     z_cut_plane = 0 
     
+    ax1.set_xlabel('$x$')
+    ax1.set_ylabel('$y$')
+    ax1.set_zlabel('$z$')
+    
+    ax1.set_title(function.__name__)
+
     # Projection of function
     z_proj = ax1.contour(XX,YY,ZZ,
                               zdir='z', offset=z_cut_plane,
                               cmap=plt.cm.viridis, zorder=1)
     
     # Particle points
-    x_particles = particle_xycoordinates[0]
-    y_particles = particle_xycoordinates[1]
-   
+    x_particles = particles_xy[0]
+    y_particles = particles_xy[1]
+    
+    # Particle velocities
+    u_particles = particles_uv[0]
+    v_particles = particles_uv[1]
+    
     assert len(x_particles) == len(y_particles), "Tuple with arrays containing particle coordinates are different dimmension"
+    assert len(u_particles) == len(v_particles), "Tuple with arrays containing particle velocities are different dimmension"
     
     n_particles = len(x_particles)
+    n_velocities = len(u_particles)
     
     if n_particles>=1:
         z_particles = np.zeros(n_particles)
@@ -70,11 +89,6 @@ def plotPSO_2D(function, particle_xycoordinates=([],[]), limits=([-5,5],[-5,5]),
                s=50, c='blue',
                depthshade=False, zorder=2)
     
-    ax1.set_xlabel('$x$')
-    ax1.set_ylabel('$y$')
-    ax1.set_zlabel('$z$')
-    
-    ax1.set_title(function.__name__)
     
     # 2D projection (right figure)
     ax2 = fig.add_subplot(1, 2, 2)
@@ -84,10 +98,21 @@ def plotPSO_2D(function, particle_xycoordinates=([],[]), limits=([-5,5],[-5,5]),
                  zdir='z', offset=z_cut_plane,
                  cmap=plt.cm.viridis, zorder=1)
     
-    # Particles
+    # Particles (2D)
     if n_particles>=1:
         ax2.scatter(x_particles, y_particles,
                s=50, c='blue', zorder=2)
+        
+        if n_velocities>=1:
+            ax2.quiver(x_particles,y_particles,u_particles,v_particles,
+                      angles='xy', scale_units='xy', scale=1)
+
+            tag_particles = range(n_particles)
+
+            for j, txt in enumerate(tag_particles):
+                ax2.annotate(txt, (x_particles[j],y_particles[j]), zorder=3)
+    
+    ax2.set_title('xy plane')
     
     
     plt.show()
@@ -95,7 +120,15 @@ def plotPSO_2D(function, particle_xycoordinates=([],[]), limits=([-5,5],[-5,5]),
   
     return fig, (ax1, ax2)
 
-def plotPSO_1D(function, particle_xcoordinates, limits=([-5,5]), n_points=100, *arg):
+def plotPSO_1D(function, limits=([-5,5]), particle_xcoordinates=([]), particle_uvelocities=([]), n_points=100, *arg):
+    """Returns and shows a figure of a 2D representation of a 1D function
+    
+    Params:
+        function: a 2D or nD objective function
+        limits: define the bounds of the function
+        particle_xcoordinates a tuple contatining 2 lists with the x and y coordinate of the particles
+        particles_xy a tuple contatining 2 lists with the u and v velocities of the particles
+        n_points: number of points where the function is evaluated to be plotted, the bigger the finner"""
     
     # Grid points 
     x_lo = limits[0]
@@ -111,20 +144,34 @@ def plotPSO_1D(function, particle_xcoordinates, limits=([-5,5]), n_points=100, *
     ax = fig.add_subplot(111) # 111 stands for subplot(nrows, ncols, plot_number) 
     ax.plot(x,z)
     
-    x_particles = particle_xcoordinates
+    x_particles = particle_xcoordinates[0]
+    u_particles = particle_uvelocities[0]
     
     n_particles = len(x_particles)
-    z_particles = np.zeros(n_particles)
+    n_velocities = len(u_particles)
+
     
-    for i in range(n_particles):
-        z_particles[i] = function(x_particles[i])
+    if n_particles>=1:
+        z_particles = np.zeros(n_particles)
+        v_particles = np.zeros(n_particles)
+
+        for i in range(n_particles):
+            z_particles[i] = function(x_particles[i])
+
+        # Plot particles over the function
+        ax.scatter(x_particles, z_particles,
+               s=50, c='red')
+        
+        if n_velocities>=1:
+            ax1.quiver(x_particles,z_particles,u_particles,v_particles,
+                      angles='xy', scale_units='xy', scale=1)
+
+            tag_particles = range(n_particles)
+
+            for j, txt in enumerate(tag_particles):
+                ax1.annotate(txt, (x_particles[j,i],z_particles[j,i]))
     
-    # Plot particles over the function
-    ax.scatter(x_particles, z_particles,
-           s=50, c='red')
-       
-    # Plot particles over the function
-    ax.scatter(x_particles,z_particles, c='red')
+    
     
     ax.set_xlabel('$x$')
     ax.set_ylabel('$y$')
