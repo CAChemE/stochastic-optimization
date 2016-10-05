@@ -120,14 +120,14 @@ def plotPSO_2D(function, limits=([-5,5],[-5,5]),
   
     return fig, (ax1, ax2)
 
-def plotPSO_1D(function, limits=([-5,5]), particle_xcoordinates=([]), particle_uvelocities=([]), n_points=100, *arg):
+def plotPSO_1D(function, limits=([-5,5]), particles_coordinates=([]), particles_velocities=([]), n_points=100, *arg):
     """Returns and shows a figure of a 2D representation of a 1D function
     
     Params:
         function: a 2D or nD objective function
         limits: define the bounds of the function
-        particle_xcoordinates a tuple contatining 2 lists with the x and y coordinate of the particles
-        particles_xy a tuple contatining 2 lists with the u and v velocities of the particles
+        particles_coordinates: a tuple contatining 2 lists with the x and y coordinate of the particles
+        particles_velocities: a tuple contatining 2 lists with the u and v velocities of the particles
         n_points: number of points where the function is evaluated to be plotted, the bigger the finner"""
     
     # Grid points 
@@ -144,16 +144,18 @@ def plotPSO_1D(function, limits=([-5,5]), particle_xcoordinates=([]), particle_u
     ax = fig.add_subplot(111) # 111 stands for subplot(nrows, ncols, plot_number) 
     ax.plot(x,z)
     
-    x_particles = particle_xcoordinates[0]
-    u_particles = particle_uvelocities[0]
+    particles_coordinates = np.array(particles_coordinates)
+    particles_velocities = np.array(particles_velocities)
     
-    n_particles = len(x_particles)
-    n_velocities = len(u_particles)
+    assert particles_coordinates.ndim <=1, \
+    "Arrays containing particle coordinates have more than 1 dimmension"
+    
+    if particles_coordinates.shape[0] is not 0: 
+        x_particles = particles_coordinates
+        n_particles = x_particles.shape[0]
 
-    
-    if n_particles>=1:
         z_particles = np.zeros(n_particles)
-        v_particles = np.zeros(n_particles)
+
 
         for i in range(n_particles):
             z_particles[i] = function(x_particles[i])
@@ -162,7 +164,13 @@ def plotPSO_1D(function, limits=([-5,5]), particle_xcoordinates=([]), particle_u
         ax.scatter(x_particles, z_particles,
                s=50, c='red')
         
-        if n_velocities>=1:
+        if particles_velocities.shape[0] is not 0:  
+            u_particles = particles_velocities
+            
+            n_velocities = u_particles.shape[0]
+            
+            v_particles = np.zeros(n_particles)
+    
             ax1.quiver(x_particles,z_particles,u_particles,v_particles,
                       angles='xy', scale_units='xy', scale=1)
 
