@@ -5,7 +5,14 @@ from mpl_toolkits.mplot3d import Axes3D
 plt.style.use('bmh')
 
 
-def plotPSO_2D(function, particle_xycoordinates, limits=([-5,5],[-5,5]), n_points=100, *arg):
+def plotPSO_2D(function, particle_xycoordinates=([],[]), limits=([-5,5],[-5,5]), n_points=100, *arg):
+    """Creates a figure of 1x2 with a 3D projection representation of a 2D function and a its projection
+    
+    Params:
+        function: a 2D or nD objective function
+        particle_xycoordinates a tuple contatining 2 lists with the x and y coordinate of the particles
+        limits: define the bounds of the function
+        n_points: number of points where the function is evaluated to be plotted, the bigger the finner"""
     
     # Grid points 
     x_lo = limits[0][0]
@@ -35,7 +42,7 @@ def plotPSO_2D(function, particle_xycoordinates, limits=([-5,5],[-5,5]), n_point
     # Projection of function
     z_proj = ax1.contour(XX,YY,ZZ,
                               zdir='z', offset=z_cut_plane,
-                              cmap=plt.cm.viridis)
+                              cmap=plt.cm.viridis, zorder=1)
     
     # Particle points
     x_particles = particle_xycoordinates[0]
@@ -44,22 +51,24 @@ def plotPSO_2D(function, particle_xycoordinates, limits=([-5,5],[-5,5]), n_point
     assert len(x_particles) == len(y_particles), "Tuple with arrays containing particle coordinates are different dimmension"
     
     n_particles = len(x_particles)
-    z_particles = np.zeros(n_particles)
     
-    for i in range(n_particles):
-        z_particles[i] = function((x_particles[i],y_particles[i]))
+    if n_particles>=1:
+        z_particles = np.zeros(n_particles)
     
-    # Plot particles over the function
-    ax1.scatter(x_particles, y_particles, z_particles,
-           s=50, c='red',
-           depthshade=True)
-    
-    z_particles_projection = z_cut_plane*np.ones(n_particles)
-    
-    # Plot particles over the function
-    ax1.scatter(x_particles, y_particles, z_particles_projection,
-           s=50, c='blue',
-           depthshade=False)
+        for i in range(n_particles):
+            z_particles[i] = function((x_particles[i],y_particles[i]))
+
+        # Plot particles over the function 
+        ax1.scatter(x_particles, y_particles, z_particles,
+               s=50, c='red',
+               depthshade=True)
+
+        z_particles_projection = z_cut_plane*np.ones(n_particles)
+
+        # Plot particles below the function (projection)
+        ax1.scatter(x_particles, y_particles, z_particles_projection,
+               s=50, c='blue',
+               depthshade=False, zorder=2)
     
     ax1.set_xlabel('$x$')
     ax1.set_ylabel('$y$')
@@ -67,22 +76,24 @@ def plotPSO_2D(function, particle_xycoordinates, limits=([-5,5],[-5,5]), n_point
     
     ax1.set_title(function.__name__)
     
-    # 2D projection
+    # 2D projection (right figure)
     ax2 = fig.add_subplot(1, 2, 2)
     
     # Projection of function
     ax2.contour(XX,YY,ZZ,
                  zdir='z', offset=z_cut_plane,
-                 cmap=plt.cm.viridis)
+                 cmap=plt.cm.viridis, zorder=1)
+    
     # Particles
-    ax2.scatter(x_particles, y_particles,
-           s=50, c='blue')
+    if n_particles>=1:
+        ax2.scatter(x_particles, y_particles,
+               s=50, c='blue', zorder=2)
     
     
     plt.show()
 
-    
-    return fig, ax1
+  
+    return fig, (ax1, ax2)
 
 def plotPSO_1D(function, particle_xcoordinates, limits=([-5,5]), n_points=100, *arg):
     
