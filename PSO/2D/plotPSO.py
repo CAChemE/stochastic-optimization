@@ -42,7 +42,7 @@ def plotPSO_2D(function, limits=([-5,5],[-5,5]),
 
     ax1.plot_surface(XX,YY,ZZ,
                     rstride=3, cstride=3, alpha=0.4,
-                    cmap=plt.cm.viridis)
+                    cmap=plt.cm.viridis, zorder=1)
         
     z_cut_plane = 0 
     
@@ -53,7 +53,7 @@ def plotPSO_2D(function, limits=([-5,5],[-5,5]),
     ax1.set_title(function.__name__)
 
     # Projection of function
-    z_proj = ax1.contour(XX,YY,ZZ,
+    z_proj = ax1.contourf(XX,YY,ZZ,
                               zdir='z', offset=z_cut_plane,
                               cmap=plt.cm.viridis, zorder=1)
     
@@ -79,29 +79,29 @@ def plotPSO_2D(function, limits=([-5,5],[-5,5]),
 
         # Plot particles over the function 
         ax1.scatter(x_particles, y_particles, z_particles,
-               s=50, c='red',
-               depthshade=True)
+               s=50, c='magenta',
+               depthshade=False, zorder=1000)
 
         z_particles_projection = z_cut_plane*np.ones(n_particles)
 
         # Plot particles below the function (projection)
         ax1.scatter(x_particles, y_particles, z_particles_projection,
-               s=50, c='blue',
-               depthshade=False, zorder=2)
+               s=50, c='red',
+               depthshade=False, zorder=1000)
     
     
     # 2D projection (right figure)
     ax2 = fig.add_subplot(1, 2, 2)
     
     # Projection of function
-    ax2.contour(XX,YY,ZZ,
+    cf2d = ax2.contourf(XX,YY,ZZ,
                  zdir='z', offset=z_cut_plane,
                  cmap=plt.cm.viridis, zorder=1)
     
     # Particles (2D)
     if n_particles>=1:
         ax2.scatter(x_particles, y_particles,
-               s=50, c='blue', zorder=2)
+               s=50, c='red', zorder=2)
         
         if n_velocities>=1:
             ax2.quiver(x_particles,y_particles,u_particles,v_particles,
@@ -112,11 +112,13 @@ def plotPSO_2D(function, limits=([-5,5],[-5,5]),
             for j, txt in enumerate(tag_particles):
                 ax2.annotate(txt, (x_particles[j],y_particles[j]), zorder=3)
     
+    
     ax2.set_title('xy plane')
+    fig.colorbar(cf2d, shrink=1)
     
-    
-    #plt.show()
-    #plt.ion()
+    #plt.savefig(function.__name__+'_2D', bbox_inches='tight')
+    plt.show()
+
 
   
     return fig, (ax1, ax2)
@@ -143,7 +145,7 @@ def plotPSO_1D(function, limits=([-5,5]), particles_coordinates=([]), particles_
     
     fig = plt.figure()
     ax = fig.add_subplot(111) # 111 stands for subplot(nrows, ncols, plot_number) 
-    ax.plot(x,z)
+    ax.plot(x,z, zorder=1)
     
     particles_coordinates = np.array(particles_coordinates)
     particles_velocities = np.array(particles_velocities)
@@ -163,7 +165,7 @@ def plotPSO_1D(function, limits=([-5,5]), particles_coordinates=([]), particles_
 
         # Plot particles over the function
         ax.scatter(x_particles, z_particles,
-               s=50, c='red')
+               s=50, c='red', zorder=2)
         
         if particles_velocities.shape[0] is not 0:  
             u_particles = particles_velocities
@@ -185,8 +187,9 @@ def plotPSO_1D(function, limits=([-5,5]), particles_coordinates=([]), particles_
     ax.set_xlabel('$x$')
     ax.set_ylabel('$y$')
 
-    # ax.set_title('Ackley function')
+    ax.set_title(function.__name__)
     
-    #plt.show()
+    #plt.savefig(function.__name__+'_1D', bbox_inches='tight')
+    plt.show()
     
     return fig, ax
