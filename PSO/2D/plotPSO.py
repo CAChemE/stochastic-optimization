@@ -115,7 +115,8 @@ def plotPSO_2D(function, limits=([-5,5],[-5,5]),
     ax2.set_title('xy plane')
     
     
-    plt.show()
+    #plt.show()
+    #plt.ion()
 
   
     return fig, (ax1, ax2)
@@ -186,6 +187,6 @@ def plotPSO_1D(function, limits=([-5,5]), particles_coordinates=([]), particles_
 
     # ax.set_title('Ackley function')
     
-    plt.show()
+    #plt.show()
     
     return fig, ax
