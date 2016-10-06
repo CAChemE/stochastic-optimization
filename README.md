@@ -2,7 +2,7 @@
 
 A set of examples to optimize process simulators with Python and derivative-free algorithms such as GA or PSO.
 
-You can take a look here: [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/cacheme/stochastic-optimization)
+Take a look and launch the jupyter notebooks from your browser: [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/cacheme/stochastic-optimization)
 
 ![PSO-2D](https://github.com/CAChemE/stochastic-optimization/blob/master/PSO/2D/img/PSO_Example1.gif)
 
