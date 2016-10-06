@@ -117,7 +117,7 @@ def plotPSO_2D(function, limits=([-5,5],[-5,5]),
     fig.colorbar(cf2d, shrink=1)
     
     #plt.savefig(function.__name__+'_2D', bbox_inches='tight')
-    plt.show()
+    #plt.show()
 
 
   
