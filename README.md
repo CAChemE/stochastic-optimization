@@ -6,9 +6,7 @@ Take a look and launch the jupyter notebooks from your browser: [![Binder](http:
 
 ![PSO-2D](https://github.com/CAChemE/stochastic-optimization/blob/master/PSO/2D/img/PSO_Example1.gif)
 
-This is a talk submittedto the _great_ Python Conference in Spain (PyConES 2016)
-
-(work in progress...) 
+This is a talk submitted to the _great_ Python Conference in Spain (PyConES 2016)
 
 References:
 [Rigorous Design of Complex Distillation Columns Using Process Simulators and the Particle Swarm Optimization Algrithm](http://pubs.acs.org/doi/abs/10.1021/ie400918x?journalCode=iecred)(paper)
