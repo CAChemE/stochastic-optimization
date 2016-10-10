@@ -47,14 +47,14 @@ from pso_column import distCol_optimization
 # ---------------------------------------------------------------------------------------------------------------------------------------------------|
 #  #01 ...... Test_Column ........... Main script                                |   User Inputs                                                     |
 # ---------------------------------------------------------------------------------------------------------------------------------------------------|
-#  #02 ...... pso_column ............ Call to hyInterface to Establis the        |                                                                   |
+#  #02 ...... pso_column ............ Call to hyInterface to start the        |                                                                   |
 #                                     connection with Aspen Hysys and runs the   | Do not modify                                                     | 
 #                                     pso_gbest algorithm                        |                                                                   |
 # ---------------------------------------------------------------------------------------------------------------------------------------------------|
 #  #03 ...... hyInterface  .......... Aspen Hysys - Python Interface             | If some labels of the Aspen Hysys model are modify, user must     |
 #                                                                                | modify also this function.                                        |          
 # ---------------------------------------------------------------------------------------------------------------------------------------------------|
-#  #04 ...... tac_column   ........ Calculates TAC (total anual cost)            | User can modify economic parameters or cost correlations.         |
+#  #04 ...... tac_column   ........ Calculates TAC (total annual cost)            | User can modify economic parameters or cost correlations.         |
 #                                   of the conv. distillation column             | This functions is within the Test_Column_ObjFnc.py file           |
 #----------------------------------------------------------------------------------------------------------------------------------------------------|
 #  #05 ...... print_results       ... print main results in screen               |  Function is inside the file named print_pso.py                   |
@@ -66,18 +66,18 @@ from pso_column import distCol_optimization
 # # User inputs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 # # 01 Hysys file name
-hy_filename = 'Test_Column.hsc';
+hy_filename = 'Test_Column.hsc'
 
 # # 02 
-hy_best_model_filename = 'Best_Solution_Test_Column.hsc';
+hy_best_model_filename = 'Best_Solution_Test_Column.hsc'
 
 # # 03 Bounds on the conditional trays
 #      RR BR NR  NS
-lb = [ 1, 1, 10, 10]                                                          
-ub = [ 2, 2, 30, 30]  
+lb = [1, 1, 10, 10]
+ub = [2, 2, 30, 30]
 
 # # 04 Binary variables index
-IntVars = [2,3]    
+IntVars = [2, 3]
 
 # # 05 Aspen Hysys Graphical User Interface Visible
 hy_visible = 1  # [1 ==> Visible    0 ==> No Visible]

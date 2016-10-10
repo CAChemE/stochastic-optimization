@@ -28,12 +28,12 @@ def tac_column(Problem):
     """
     
        
-# 01 # Recover Hysys Objects from structure Problem
+    # 01 # Recover Hysys Objects from structure Problem
     HyObject       = Problem.HyObject          # Main Aspen Hysys Objects
     MaterialStream = HyObject.MaterialStream   # Column material streams
     EnergyStream   = HyObject.EnergyStream     # Column energy streams
     
-# 02 # Import Data from Aspen Hysys Model
+    # 02 # Import Data from Aspen Hysys Model
     NT = HyObject.DistColumn.Main_TS.NumberOfTrays               # Column Active  Trays
     
     TD    = MaterialStream.Distillate.Temperature.GetValue('C')  # Distillate Temperature    
@@ -42,12 +42,12 @@ def tac_column(Problem):
     Qcond = EnergyStream.Qcond.HeatFlow.GetValue('kW')           # Condenser duty
     Qreb  = EnergyStream.Qreb.HeatFlow.GetValue('kW')            # Reboiler Duty
     
-# 03 # Run Aspen Hysys Script "Col_diam_V8.SCP" to update column diameter
-#    Problem.HyObject.HyCase.Application.PlayScript(os.path.abspath('Column_Diameter.SCP'))
+    # 03 # Run Aspen Hysys Script "Col_diam_V8.SCP" to update column diameter
+    #    Problem.HyObject.HyCase.Application.PlayScript(os.path.abspath('Column_Diameter.SCP'))
     column_diameter  =  max( HyObject.HyCase.UtilityObjects.Item('Tray Sizing-1').DiameterValue)  # [m]
     
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<< User Inputs    
-# # Equipment and Utility Parameter Cost ##################################
+    # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<< User Inputs
+    # # Equipment and Utility Parameter Cost ##################################
     
     # * Global parameters
     CEPIC_Actual  = 576.1                    # Annual Index 2014
@@ -86,9 +86,9 @@ def tac_column(Problem):
     # Tower Column
     tray_Spacing = 0.6096  # [m]    
     
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> # END Equipment and Utility Parameter Cost
+    # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> # END Equipment and Utility Parameter Cost
     
-# 04 # Operating Cost ########################################################
+    # 04 # Operating Cost ########################################################
     
     # * Cooling Water Cost [$/yr] *********************************************
     coolingWater_Cost =  Qcond * WATER * YEAR
@@ -96,7 +96,7 @@ def tac_column(Problem):
     # * Steam Cost [$/yr] *****************************************************
     Steam_Cost = Qreb * STEAM * YEAR
     
-# 05 # Capital Cost ##########################################################
+    # 05 # Capital Cost ##########################################################
         
     # * Column dimensions
     column_area   = np.pi * np.square(column_diameter) / 4   # Sieve area [m2]
@@ -155,7 +155,7 @@ def tac_column(Problem):
     reboiler_CBM     = reboiler_CBM_old * UpdateFactor # [$] ==================
     
     
-# 06 # Total Annual Cost #####################################################
+    # 06 # Total Annual Cost #####################################################
     
     # * Total Operating Cost
     Cop = coolingWater_Cost + Steam_Cost
@@ -182,4 +182,3 @@ def tac_column(Problem):
     ColumnCost.TAC          = TAC
     
     return (ColumnCost)
-    

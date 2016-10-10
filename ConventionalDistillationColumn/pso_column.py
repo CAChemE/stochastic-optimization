@@ -22,12 +22,12 @@ from column_algorithm import distColumn_model
 def distCol_optimization(Problem):
 
 
-# 01 Interface between Aspen Hysys and Matlab
+    # 01 Interface between Aspen Hysys and Matlab
     HyObject = hy_Dist_Col_Object(Problem)  # from hiInterface
     
     Problem.HyObject = HyObject
 
-# 02 Run Optimization model
+    # 02 Run Optimization model
     lb      = Problem.lb    
     ub      = Problem.ub
     IntVars = Problem.IntVars
@@ -38,7 +38,8 @@ def distCol_optimization(Problem):
    
     t_stop = time.time() - t_start
 
-# 03 Print Results
+    # 03 Print Results
     Result.etime = t_stop
-#    printResult_cdc(Result, Problem)
+
+    # printResult_cdc(Result, Problem)
     return(Result)
