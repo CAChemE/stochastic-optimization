@@ -4,6 +4,8 @@ A set of examples to optimize process simulators with Python and derivative-free
 
 Take a look and launch the jupyter notebooks from your browser: [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/cacheme/stochastic-optimization)
 
+[Slides](https://github.com/CAChemE/stochastic-optimization/raw/master/Slides%20-%20PyconES%202016%20-%20Simulation-Based%20Optimization%20Using%20PSO.pdf)
+
 ![PSO-2D](https://github.com/CAChemE/stochastic-optimization/blob/master/PSO/2D/img/PSO_Example1.gif)
 
 This is a talk submitted to the _great_ Python Conference in Spain (PyConES 2016)
